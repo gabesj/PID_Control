@@ -38,5 +38,5 @@ double PID::TotalError() {
    * TODO: Calculate and return the total error
    */
   double error = -1.0 * this->Kp * this->p_error - this->Ki * this->i_error - this->Kd * this->d_error;
-  return error;  // TODO: Add your total error calc here!
+  return error;  
 }
