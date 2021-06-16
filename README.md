@@ -1,7 +1,29 @@
-# CarND-Controls-PID
-Self-Driving Car Engineer Nanodegree Program
+### This is Gabe Johnson's completed project for the PID Control course in Udacity's Self-Driving Car Nanodegree
 
----
+The original assignment repo can be found here [Udacity Repo] (https://github.com/udacity/CarND-PID-Control-Project)
+
+## Goal:
+The goal is to steer a car through a simulator using a PID control loop.  The simulator provides data including the car's deviation from the centerline of the track.  The assignment is to implement a proportional-integral-derivative controller to calculate a steering correction factor, which is sent back to the simulator.  
+For an extra challenge, the course suggests implementing a technique or coordinate ascent (also called Twiddle), which dynamically tunes the three PID coefficients to find near-optimal values.
+
+## Method:
+The program uses PID coefficients to calculate the error in the process variable using a classic PID method.
+Main.cpp has a boolean variable `do_tune`.  When it is false, the program will steer the car using the declared values of the PID coefficients.  When it is true, the program will use those coefficients as a starting point, but will use the coordinate ascent method to tweak them each lap.  Throughout each lap, the error in deviation from the centerline is accumulated to judge the performance.  Then one of the PID coefficients is adjusted and another lap driven.  If the newest set of coefficients gives better results they are retained in memory, and another PID coefficient is adjusted for the next lap.  If the results are worse, the PID coefficient is adjusted in the opposite direction for the next lap.  Then the next PID coefficient is adjusted and the process repeated.  As this continues, the magnitudes of each individual PID adjustment is scaled larger if it produces better results or smaller if it does not produce better results in either the positive or negative direction.  As the program iterates through more and more laps, the magnitues of adjustment inevitably get smaller, and eventually get to a point where it is assumed that the continued improvements are nearly negligible.  At that point, the PID coefficients that produced the best performance are displayed and the simulator continues to drive the car using these tuned values.
+
+Here is a video showing the closed loop PID steering control:
+[![PIDSimulation](video/PIDvid.gif)]
+
+## Instructions for Use:
+You can downloa dthe Term2 Simulator which contains the PID Controller simulator from the [releases tab (https://github.com/udacity/self-driving-car-sim/releases/tag/v1.45)
+
+Basic Build Instructions
+
+1. Clone this repo.
+2. Make a build directory: `mkdir build && cd build`
+3. Change the value of `do_tune` if desired
+4. Compile: `cmake .. && make`
+5. Run it: `./pid`. 
+
 
 ## Dependencies
 
@@ -23,76 +45,4 @@ Self-Driving Car Engineer Nanodegree Program
     cd uWebSockets
     git checkout e94b6e1
     ```
-    Some function signatures have changed in v0.14.x. See [this PR](https://github.com/udacity/CarND-MPC-Project/pull/3) for more details.
-* Simulator. You can download these from the [project intro page](https://github.com/udacity/self-driving-car-sim/releases) in the classroom.
-
-Fellow students have put together a guide to Windows set-up for the project [here](https://s3-us-west-1.amazonaws.com/udacity-selfdrivingcar/files/Kidnapped_Vehicle_Windows_Setup.pdf) if the environment you have set up for the Sensor Fusion projects does not work for this project. There's also an experimental patch for windows in this [PR](https://github.com/udacity/CarND-PID-Control-Project/pull/3).
-
-## Basic Build Instructions
-
-1. Clone this repo.
-2. Make a build directory: `mkdir build && cd build`
-3. Compile: `cmake .. && make`
-4. Run it: `./pid`. 
-
-Tips for setting up your environment can be found [here](https://classroom.udacity.com/nanodegrees/nd013/parts/40f38239-66b6-46ec-ae68-03afd8a601c8/modules/0949fca6-b379-42af-a919-ee50aa304e6a/lessons/f758c44c-5e40-4e01-93b5-1a82aa4e044f/concepts/23d376c7-0195-4276-bdf0-e02f1f3c665d)
-
-## Editor Settings
-
-We've purposefully kept editor configuration files out of this repo in order to
-keep it as simple and environment agnostic as possible. However, we recommend
-using the following settings:
-
-* indent using spaces
-* set tab width to 2 spaces (keeps the matrices in source code aligned)
-
-## Code Style
-
-Please (do your best to) stick to [Google's C++ style guide](https://google.github.io/styleguide/cppguide.html).
-
-## Project Instructions and Rubric
-
-Note: regardless of the changes you make, your project must be buildable using
-cmake and make!
-
-More information is only accessible by people who are already enrolled in Term 2
-of CarND. If you are enrolled, see [the project page](https://classroom.udacity.com/nanodegrees/nd013/parts/40f38239-66b6-46ec-ae68-03afd8a601c8/modules/f1820894-8322-4bb3-81aa-b26b3c6dcbaf/lessons/e8235395-22dd-4b87-88e0-d108c5e5bbf4/concepts/6a4d8d42-6a04-4aa6-b284-1697c0fd6562)
-for instructions and the project rubric.
-
-## Hints!
-
-* You don't have to follow this directory structure, but if you do, your work
-  will span all of the .cpp files here. Keep an eye out for TODOs.
-
-## Call for IDE Profiles Pull Requests
-
-Help your fellow students!
-
-We decided to create Makefiles with cmake to keep this project as platform
-agnostic as possible. Similarly, we omitted IDE profiles in order to we ensure
-that students don't feel pressured to use one IDE or another.
-
-However! I'd love to help people get up and running with their IDEs of choice.
-If you've created a profile for an IDE that you think other students would
-appreciate, we'd love to have you add the requisite profile files and
-instructions to ide_profiles/. For example if you wanted to add a VS Code
-profile, you'd add:
-
-* /ide_profiles/vscode/.vscode
-* /ide_profiles/vscode/README.md
-
-The README should explain what the profile does, how to take advantage of it,
-and how to install it.
-
-Frankly, I've never been involved in a project with multiple IDE profiles
-before. I believe the best way to handle this would be to keep them out of the
-repo root to avoid clutter. My expectation is that most profiles will include
-instructions to copy files to a new location to get picked up by the IDE, but
-that's just a guess.
-
-One last note here: regardless of the IDE used, every submitted project must
-still be compilable with cmake and make./
-
-## How to write a README
-A well written README file can enhance your project and portfolio.  Develop your abilities to create professional README files by completing [this free course](https://www.udacity.com/course/writing-readmes--ud777).
-
+ 
