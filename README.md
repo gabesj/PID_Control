@@ -1,6 +1,6 @@
 ### This is Gabe Johnson's completed project for the PID Control course in Udacity's Self-Driving Car Nanodegree
 
-The original assignment repo can be found here [Udacity Repo] (https://github.com/udacity/CarND-PID-Control-Project)
+The original assignment repo can be found [here.](https://github.com/udacity/CarND-PID-Control-Project)
 
 ## Goal:
 The goal is to steer a car through a simulator using a PID control loop.  The simulator provides data including the car's deviation from the centerline of the track.  The assignment is to implement a proportional-integral-derivative controller to calculate a steering correction factor, which is sent back to the simulator.  
@@ -11,10 +11,10 @@ The program uses PID coefficients to calculate the error in the process variable
 Main.cpp has a boolean variable `do_tune`.  When it is false, the program will steer the car using the declared values of the PID coefficients.  When it is true, the program will use those coefficients as a starting point, but will use the coordinate ascent method to tweak them each lap.  Throughout each lap, the error in deviation from the centerline is accumulated to judge the performance.  Then one of the PID coefficients is adjusted and another lap driven.  If the newest set of coefficients gives better results they are retained in memory, and another PID coefficient is adjusted for the next lap.  If the results are worse, the PID coefficient is adjusted in the opposite direction for the next lap.  Then the next PID coefficient is adjusted and the process repeated.  As this continues, the magnitudes of each individual PID adjustment is scaled larger if it produces better results or smaller if it does not produce better results in either the positive or negative direction.  As the program iterates through more and more laps, the magnitues of adjustment inevitably get smaller, and eventually get to a point where it is assumed that the continued improvements are nearly negligible.  At that point, the PID coefficients that produced the best performance are displayed and the simulator continues to drive the car using these tuned values.
 
 Here is a video showing the closed loop PID steering control:
-[![PIDSimulation](video/PIDvid.gif)]
+![PIDSimulation](video/PIDvid.gif)
 
 ## Instructions for Use:
-You can downloa dthe Term2 Simulator which contains the PID Controller simulator from the [releases tab (https://github.com/udacity/self-driving-car-sim/releases/tag/v1.45)
+You can download the Term2 Simulator which contains the PID Controller simulator [here.](https://github.com/udacity/self-driving-car-sim/releases/tag/v1.45)  If you are using a newer version of Linux, you may need to run it with the Windowed option unchecked.
 
 Basic Build Instructions
 
